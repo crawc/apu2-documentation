@@ -28,7 +28,7 @@ NUMBER="$(echo ${TYPE} | tr -dc '0-9')"
 
 echo
 echo "+-----------------------------------+"
-echo "| APU firmware updater for OPNsense |"
+echo "| APU firmware updater for pfSense & OPNsense |"
 echo "+-----------------------------------+"
 
 cd "/tmp"
@@ -87,6 +87,8 @@ flash () {
   if [ "${NUMBER}" -gt 1 ]; then
     # APU2/3/4/5
     flashrom -w "${FILE}" -p internal
+    echo Try this if board mismatch" flashrom -w "${FILE}"-p internal:boardmismatch=force
+    # flashrom -w "${FILE}"-p internal:boardmismatch=force
   else
     # APU1
     flashrom -w "${FILE}" -p internal -c "MX25L1605A/MX25L1606E/MX25L1608E"
@@ -125,7 +127,7 @@ flash
 
 cleanup
 
-do_reboot
+#do_reboot
 
 echo
 exit 0
